@@ -1,0 +1,39 @@
+{
+  // Applications part
+  "apps" : [{
+    "name"      : "Segment",
+    "script"    : "app.js",
+    "env": {
+      "COMMON_VARIABLE": "true"
+    },
+    // Environment variables injected when starting with --env production
+    // http://pm2.keymetrics.io/docs/usage/application-declaration/#switching-to-different-environments
+    "env_production" : {
+      "NODE_ENV": "production"
+    }
+  }],
+  // Deployment part
+  // Here you describe each environment
+  "deploy" : {
+    "production" : {
+      "user" : "imooc_manager",
+      // Multi host is possible, just by passing IPs/hostname as an array
+      "host" : ["112.74.212.128"],
+      "port":"22",
+      // Branch
+      "ref"  : "origin/master",
+      // Git repository to clone
+      "repo" : "git@github.com:dravenxiaokai/segment.git",
+      // Path of the application on target servers
+      "path" : "/www/segment/production",
+      // Can be used to give options in the format used in the configura-
+      // tion file.  This is useful for specifying options for which there
+      // is no separate command-line flag, see 'man ssh' 
+      // can be either a single string or an array of strings
+      "ssh_options": "StrictHostKeyChecking=no",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
