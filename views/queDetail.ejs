@@ -1,0 +1,88 @@
+<%- include header %>
+<script type="text/javascript" src="/xheditor/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/xheditor/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript">
+$(pageInit);
+function pageInit()
+{
+    $.extend(XHEDITOR.settings,{shortcuts:{'ctrl+enter':submitForm}});
+    $('#content').xheditor({html5Upload:false,upMultiple:'1',upLinkUrl:"upload.php",upLinkExt:"zip,rar,txt",upImgUrl:"/uploadImg",upImgExt:"jpg,jpeg,gif,png",upFlashUrl:"upload.php",upFlashExt:"swf",upMediaUrl:"upload.php",upMediaExt:"wmv,avi,wma,mp3,mid"});
+}
+function insertUpload(arrMsg)
+{console.log(arrMsg)
+    var i,msg;
+    for(i=0;i<arrMsg.length;i++)
+    {
+        msg=arrMsg[i];
+        $("#uploadList").append('<option value="'+msg.id+'">'+msg.localname+'</option>');
+    }
+}
+function submitForm(){
+$('#frmDemo').submit();}
+function onsub(){
+    if(myform.content.value=='' || myform.title.value==''){return false;}
+    return true;
+}
+</script>
+<br>
+
+<div style="width:1024px;margin:0.5em auto;">
+<table class="table table-striped table-bordered">
+  <tr>
+  	<td rowspan="2" valign="top"><%=rs[0].nicheng%></td>
+    <td class="text-info text-center"><h4>标题：<%=rs[0].title%></h4></td>
+  </tr>
+  <tr>
+    <td><%-rs[0].content%></td>
+  </tr>
+  <tr>
+  	<td colspan="2">
+  		<%- rs[0].renum %>个回答
+  	</td>
+  </tr>
+  <%
+        if(rsReply!=undefined){
+        	rsReply.forEach(function(row){
+   %>
+   <tr>
+   		<td>
+   			<%-row['nicheng']%><br>
+   			<%-row['createtime']%>
+   		</td>
+   		<td>
+   			<%-row['content']%>
+   		</td>
+   </tr>
+   <%
+   			})
+  		 }
+   %>
+  <tr>
+  	<td colspan="2">
+    <div class="text-center">
+  		<form name="myform" method="post" action="/question/reply" onsubmit="return onsub()">
+	  		<% if(loginbean==undefined){ %>
+	  			请&nbsp;<a class="btn btn-success" href="javascript:$('#loginBtn').click();">登录</a>&nbsp;后发表回答
+	  		<% }else{ %>
+	  			<textarea id="content" name="content" cols="120" rows="9"></textarea>
+	  			<br>
+	  			<input type="hidden" name="qid" value="<%=rs[0].qid%>">
+	  			<input type="hidden" name="subflag" value="1">
+	  			<input type="submit" class="btn btn-success" value="回答">
+	  		<% } %>
+  		</form>
+      </div>
+  	</td>
+  </tr>
+</table>
+</div>
+
+<!-- 登陆注册模态框 -->
+<div class="modal fade" id="loginModal" style="width: 1080px">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 860px">
+            <!-- href内容 -->
+        </div>
+    </div>
+</div>
+<%-include footer%>

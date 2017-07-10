@@ -1,0 +1,75 @@
+<%-include header%>
+  <div style="width:1024px;margin:0.5em auto;">
+    <ol class="breadcrumb" style="margin-top:0.2em;">
+      <li><a href="/">首页</a></li>
+      <li class="active">校园兼职</li>
+    </ol>
+  </div>
+
+<script type="text/javascript" src="/xheditor/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/xheditor/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript">
+$(pageInit);
+function pageInit()
+{
+    $.extend(XHEDITOR.settings,{shortcuts:{'ctrl+enter':submitForm}});
+    $('#content').xheditor({html5Upload:false,upMultiple:'1',upLinkUrl:"upload.php",upLinkExt:"zip,rar,txt",upImgUrl:"/uploadImg",upImgExt:"jpg,jpeg,gif,png",upFlashUrl:"upload.php",upFlashExt:"swf",upMediaUrl:"upload.php",upMediaExt:"wmv,avi,wma,mp3,mid"});
+}
+function insertUpload(arrMsg)
+{console.log(arrMsg)
+    var i,msg;
+    for(i=0;i<arrMsg.length;i++)
+    {
+        msg=arrMsg[i];
+        $("#uploadList").append('<option value="'+msg.id+'">'+msg.localname+'</option>');
+    }
+}
+function submitForm(){$('#frmDemo').submit();}
+function onsub(){
+    //typename = $("#typeid").find("option:selected").text();
+    //myform.typename.value = typename;
+    if(myform.content.value=='' || myform.title.value==''){return false;}
+    return true;
+}
+</script>
+
+<div class="container row" style="width:1024px;margin:0.5em auto;">
+<h4 class="text-danger lead">发兼职招聘信息</h4>
+<form name="myform" method="post" action="./ask" onsubmit="return onsub();">  
+    <table class="table table-bordered">
+        <tr>  
+            <td align="right">工作职位:</td>  
+            <td><input type="text" name="title"/></td>  
+        </tr>
+        <tr>  
+            <td align="right">联系方式:</td>  
+            <td><input type="number" name="phone"/></td>  
+        </tr>
+        <tr>  
+            <td align="right">QQ:</td>  
+            <td><input type="number" name="qq"/></td>
+        </tr>
+
+        <tr>  
+            <td align="right">日薪:</td>  
+            <td><input type="text" name="pay"/></td>  
+        </tr>
+
+        <tr>  
+            <td align="right" valign="top">兼职简介:</td>  
+            <td>  
+                <textarea id="content" name="content" cols="120" rows="9"></textarea> 
+            </td>  
+        </tr>  
+        <tr>  
+            <td colspan="2" align="center">  
+                <input type="hidden" name="subflag" value="1"/>
+                <!--<input type="hidden" name="typename"/>-->
+                <input type="submit" class="btn btn-success" value="发表"/>  
+            </td>  
+        </tr>
+    </table>  
+    </form>
+</div>
+
+<%-include footer%>

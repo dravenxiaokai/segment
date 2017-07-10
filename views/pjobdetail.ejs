@@ -1,0 +1,78 @@
+<%-include header%>
+
+<script type="text/javascript">
+  $('#foucusmodal').on('shown.bs.modal', function () {
+  $('#myModalLabel').focus();
+})
+</script>
+
+  <div style="width:1024px;margin:0.5em auto;">
+  <ol class="breadcrumb" style="margin-top:0.2em;">
+      <li><a href="/">首页</a></li>
+      <li><a href="/pjob/detail?pid=1">校园兼职</a></li>
+      <li class="active">兼职详情</li>
+    </ol></div>
+
+    <div class="container row" style="width:1022px;margin:0 auto;border:1px solid #8ecc75;">
+      <table class="table table-striped table-hover"> 
+          <thead>
+            <tr>
+              <th>工作职位</th>
+              <th>联系方式</th>
+              <th>QQ</th>
+              <th>日薪</th>
+              <th>发布日期</th>
+              <th>浏览量</th>
+            </tr>
+          </thead>
+    <tbody class="answer"> 
+          <%
+          if(rs!=undefined){
+              rs.forEach(function(row){ %>
+              <tr> 
+                  <td><a type="button" id="pkmodal" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm"><%= row['title'] %></a>
+
+                  </td>
+                  <td><%= row['phone'] %></td> 
+                  <td><%= row['qq'] %></td> 
+                  <td><%= row['pay'] %></td> 
+                  <td><%= row['createtime'] %></td> 
+                  <td><%= row['looknum'] %></td> 
+               </tr>
+  <!-- 兼职信息模态框-->
+  <div id="foucusmodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="btn">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">兼职详情</h4>
+        </div>
+        <div class="modal-body"><%-row['content']%></div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+          <%
+               })
+          } 
+          %>
+
+      </tbody> 
+  </table>
+
+  </div>
+  <hr>
+  <div class="text-center"><a href="/pjob/ask" class="btn btn-success">我要招兼职</a></div>
+
+  <!-- 兼职信息模态框-->
+  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+<%-include footer%>

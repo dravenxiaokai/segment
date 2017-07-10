@@ -1,0 +1,191 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>校园论坛系统</title> 
+    <meta charset="UTF-8"> 
+<!-- 新 Bootstrap 核心 CSS 文件 --> 
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css"> 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 --> 
+<script src="/javascripts/jquery-1.11.1.min.js"></script> 
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 --> 
+<script src="/bootstrap/dist/js/bootstrap.js"></script> 
+
+<!-- <script src="/javascripts/holder.min.js"></script> -->
+ 
+<!--<link rel='stylesheet' href='/stylesheets/style.css' />--> 
+    <style> 
+    .horul{ 
+        float:left; 
+        font-size:1.5em; 
+        line-height:2em; 
+        margin-left:10em;
+        cursor: pointer;
+    } 
+    .horul li{ 
+        display:inline-block; 
+        list-style:none; 
+        height:25px; 
+        width:3em; 
+        text-align:center; 
+    } 
+    .menu{ 
+        width:1024px; 
+        background-color:#005f3d; 
+        height:1.6em; 
+        line-height: 1.6em;
+        margin:0 auto; 
+        font-size:1.5em;
+        font-family: '微软雅黑';
+        display:hidden; 
+        text-align:center; 
+        /*padding: 4px;*/
+    } 
+    .menu span{ 
+        float:left; 
+        display:inline-block; 
+        color:#ffffff; 
+        margin-left:1em; 
+    } 
+    .answer tr td div{ 
+        width:45px; 
+        height:45px; 
+        background-color:green; 
+        color:#ffffff; 
+        text-align:center; 
+    } 
+    .menu a,.menu a:hover,.menu a:visited{ 
+        color:#ffffff; 
+    }
+    .footer{
+        width: 1024px;
+        background-color:#005f3d; 
+        height: 3.2em;
+        line-height: 1.6em;
+        margin: 0 auto;
+        font-size: 1.0em;
+        text-align: center;
+        margin-top:1em;
+    }
+    .footer span{
+        display: inline-block;
+        color: #bbb;
+    }
+    .footer a,.footer a:hover,.footer a:visited{ 
+        color:#eee; 
+    }
+    .carousel-inner img{
+        margin:0 auto;
+    }
+    </style> 
+  </head> 
+  <body>
+    <div style="width:1024px;height:3em;margin:1em auto"> 
+	    <span class="glyphicon glyphicon-comment" style="float:left;font-size:2em"><a href="/"><b class="text-success">校园论坛</b></a></span>
+	    &nbsp; 
+        <div class="horul">
+            <marquee direction="left" onMouseOut="this.start()" bgcolor="#ffe" width="250" onMouseOver="this.stop()" scrollAmount="5" scrollDelay="0" ><span class="text-success">欢迎光临校园论坛系统</span></marquee>
+        </div>
+	    &nbsp; 
+        <div style="float:right;line-height:2em;">  
+            <table>  
+              <tr>  
+                <!-- <td>  
+                 <input type="text"  placeholder="请输入关键词" style="width:240px;height:30px;" >  
+                 </td>  
+                 <td>  
+                 &nbsp;  
+                 <span class="glyphicon glyphicon-zoom-in" style="font-size:1.5em;cursor:pointer;"></span>  
+                 &nbsp;&nbsp;  
+                 </td>  -->
+                <% if(loginbean==undefined){ %>  
+                <td>  
+                <input type="button" id="loginBtn" class="btn btn-success" data-toggle="modal" href="/users/login" data-target="#loginModal" value="登录/注册"/>
+                &nbsp;&nbsp;  
+                </td>  
+                <% }else{ %>  
+                <td>  
+                你好，<%=loginbean.nicheng%>
+                &nbsp;&nbsp;&nbsp;  
+                </td>  
+                <td>  
+                <div class="btn-group-vertical">  
+                    <button type="button" class="btn btn-default dropdown-toggle"   
+                      data-toggle="dropdown">  
+                      撰写  
+                      <span class="caret"></span>  
+                    </button>  
+                    <ul class="dropdown-menu">  
+                      <li><a href="/question/ask">提问求助</a></li>  
+                      <li class="divider"></li>
+                      <li><a href="/study/ask">学习论文</a></li>  
+                      <li><a href="/pjob/ask">兼职贴</a></li>  
+                      <li><a href="/fashion/ask">技术贴</a></li>
+                      <li><a href="/emotion/ask">情感散文</a></li>
+                    </ul>  
+                  </div>  
+                </div>  
+                </td>  
+                <td>  
+                &nbsp;&nbsp;&nbsp;  
+                <input type="button" class="btn btn-success" value="注销" onclick="javascript:location.href='/logout'"/>  
+                &nbsp;&nbsp;&nbsp;  
+                </td>  
+                <% } %>  
+              </tr>  
+            </table>  
+        </div> 
+    </div> 
+    <div class="menu"> 
+        <span><a href="/">主页</a></span> 
+        <span>|</span> 
+        <span><a href="/study/detail?sid=1">学习专区</a></span> 
+        <span><a href="/pjob/detail?pid=1">校园兼职</a></span> 
+        <span><a href="/fashion/detail?fid=1">时尚前沿</a></span> 
+        <span><a href="/emotion/detail?eid=1">情感交流</a></span> 
+        <span><a href="/">校园杂谈</a></span> 
+        <span>...</span>
+    </div>
+     <script> 
+         $(document).ready(function(){ 
+         $('#myCarousel').carousel({interval:3000});//每隔3秒自动轮播 
+         }); 
+    </script>
+    <div id="myCarousel" class="carousel slide" style="width:1024px;height:280px;margin:0 auto;margin-top:0.5em;">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <!-- 设置轮播图片 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <a href="/"><img src="/images/p1.jpg" width="" height="" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="/"><img src="/images/p2.jpg" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="/"><img src="/images/p3.jpg" alt=""></a>
+            </div>
+            <div class="item">
+                <a href="/"><img src="/images/p4.jpg" alt=""></a>
+                <div class="carousel-caption">
+                    <h3>情感天地</h3>
+                    <p>没有情人的情人节，也要绽放成一束花朵</p>
+                </div>
+            </div>
+        </div>
+        <a href="#myCarousel" data-slide="prev" role="button" class="carousel-control left"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous</span></a>
+        <a href="#myCarousel" data-slide="next" role="button" class="carousel-control right"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a>
+      </div>
+    </div>
+
+<!-- 登陆注册模态框 -->
+    <div class="modal fade" id="loginModal" style="width: 1080px">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 860px">
+                <!-- href内容 -->
+            </div>
+        </div>
+    </div>

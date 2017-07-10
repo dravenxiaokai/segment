@@ -1,0 +1,122 @@
+<%-include header%>
+<script type="text/javascript" src="/xheditor/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/xheditor/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript">
+$(pageInit);
+function pageInit()
+{
+    $.extend(XHEDITOR.settings,{shortcuts:{'ctrl+enter':submitForm}});
+    $('#content').xheditor({html5Upload:false,upMultiple:'1',upLinkUrl:"upload.php",upLinkExt:"zip,rar,txt",upImgUrl:"/uploadImg",upImgExt:"jpg,jpeg,gif,png",upFlashUrl:"upload.php",upFlashExt:"swf",upMediaUrl:"upload.php",upMediaExt:"wmv,avi,wma,mp3,mid"});
+}
+function insertUpload(arrMsg)
+{console.log(arrMsg)
+    var i,msg;
+    for(i=0;i<arrMsg.length;i++)
+    {
+        msg=arrMsg[i];
+        $("#uploadList").append('<option value="'+msg.id+'">'+msg.localname+'</option>');
+    }
+}
+function submitForm(){$('#frmDemo').submit();}
+function onsub(){
+    if(myform.content.value=='' || myform.title.value==''){return false;}
+    return true;
+}
+</script>
+  <div class="well" style="width:1024px;margin:0.5em auto;">
+    <ol class="breadcrumb" style="margin-top:0.2em;">
+      <li><a href="/">首页</a></li>
+      <li>情感天地</li>
+      <li class="active">情感美文</li>
+    </ol>
+  </div>
+  <div class="well row" style="width:1024px;margin:1em auto;border:1px solid #eee">
+      <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><h4 class="text-danger"><span class="glyphicon glyphicon-tasks"></span> 文章目录表</h4></th>
+          <th><h4 class="text-danger"><span class="glyphicon glyphicon-education"></span> 情感疗伤</h4></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class=" navbar" role="navigation" style="width:11em;margin:0.2em auto;">
+              
+              <ol class="nav navbar-nav">
+                <%
+                if(rsList!=undefined){
+                    rsList.forEach(function(row){ %>
+                <li class="active"><a class="text-success" href="/emotion/detail?eid=<%=row['eid']%>"><span class="glyphicon glyphicon-triangle-right"></span> <%= row['title'] %></a></li><br>
+                <%
+                     })
+                }
+                %>
+              </ol>
+            </div>
+          </td>
+          <td>
+              <div class="" style="margin:0.2em auto;>
+                <div style="width:10%;border-top:1px solid #bbb;"></div>
+                <h4 class="text-info" style="text-align:center"><span class="glyphicon glyphicon-grain"></span> <%=rs[0].title%></h4>
+                <div class="text-right">
+                  <ul class="list-unstyled list-inline">
+                    <li>作者：<%=rs[0].nicheng%></li>
+                    <li>时间：<%=rs[0].createtime%></li>
+                  </ul>
+                </div>
+                <hr width="90%">
+                <div style="text-indent:2.5em;" class="text-justify">
+                <%-rs[0].content%>
+                </div>
+                <hr>
+                <div class="text-center">
+                <fieldset>
+                  <legend><h4 class="text-info text-left">评论区</h4></legend>
+                  <table class="table table-striped table-bordered">
+                    <tr>
+                      <td colspan="2">
+                        <strong class="text-left text-info"><%- rs[0].renum %>条评论</strong>
+                      </td>
+                    </tr>
+                    <%
+                          if(rsReply!=undefined){
+                            rsReply.forEach(function(row){
+                     %>
+                     <tr>
+                        <td>
+                          <%-row['nicheng']%><br>
+                          <%-row['createtime']%>
+                        </td>
+                        <td>
+                          <%-row['content']%>
+                        </td>
+                     </tr>
+                     <%
+                          })
+                         }
+                     %>
+                  </table>
+                      <form name="myform" method="post" action="/emotion/reply" onsubmit="return onsub()">
+                        <% if(loginbean==undefined){ %>
+                          请&nbsp;<a class="btn btn-success" href="javascript:$('#loginBtn').click();">登录</a>&nbsp;后发表回答
+                        <% }else{ %>
+                          <textarea id="content" name="content" cols="100" rows="9"></textarea>
+                          <br><br>
+                          <input type="hidden" name="eid" value="<%=rs[0].eid%>">
+                          <input type="hidden" name="subflag" value="1">
+                          <input type="submit" class="btn btn-success" value="评论">
+                        <% } %>
+                      </form>
+                </fieldset>
+                </div>
+                <br>
+                <a href="/emotion/ask" class="btn btn-info">我也发文章</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<%-include footer%>

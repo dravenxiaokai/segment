@@ -1,0 +1,154 @@
+﻿create database segment; 
+1./*segment库中建user表： */
+create table user( 
+uid int not null primary key auto_increment, 
+email varchar(60) not null, 
+pwd varchar(60) not null, 
+nicheng varchar(120) not null, 
+updtime timestamp not null, 
+createtime timestamp not null, 
+unique key emailuniq (email), 
+unique key nichenguiq (nicheng) 
+)ENGINE=myisam DEFAULT CHARSET=utf8; 
+
+1.改表：
+drop table question,replies;
+/*问题表*/
+create table question(
+qid bigint not null primary key auto_increment,
+typeid int not null,        /*问题分类*/
+typename varchar(120) not null,  /*分类名称*/
+title varchar(240) not null,    /*问题标题*/
+content text not null,    /*问题内容*/
+uid bigint not null,        /*提问者id*/
+nicheng varchar(120) not null, /*提问者昵称*/
+looknum bigint not null default 0,/*查看次数*/
+renum int not null default 0,    /*回复次数*/
+finished tinyint not null default 0,/*是否结贴,0表未结贴,1表结贴*/
+updtime timestamp not null,
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+/*问题回复表replies*/
+create table replies(
+rpid bigint not null primary key auto_increment,
+qid bigint not null,
+content text not null,
+uid bigint not null,        /*提问者id*/
+nicheng varchar(120) not null, /*提问者昵称*/
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+=================================================
+/*写文章表*/
+create table study(
+sid bigint not null primary key auto_increment,
+typeid int not null,        /*问题分类*/
+typename varchar(120) not null,  /*分类名称*/
+title varchar(240) not null,    /*问题标题*/
+content text not null,    /*问题内容*/
+uid bigint not null,        /*作者id*/
+nicheng varchar(120) not null, /*作者昵称*/
+looknum bigint not null default 0,/*查看次数*/
+renum int not null default 0,    /*回复次数*/
+finished tinyint not null default 0,/*是否结贴,0表未结贴,1表结贴*/
+updtime timestamp not null,
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+/*文章评论表*/
+create table studyreplies(
+srpid bigint not null primary key auto_increment,
+sid bigint not null,
+content text not null,
+uid bigint not null,        /*评论者id*/
+nicheng varchar(120) not null, /*评论者者昵称*/
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+==========================================
+/*情感表*/
+create table emotion(
+eid bigint not null primary key auto_increment,
+typeid int not null,        /*问题分类*/
+typename varchar(120) not null,  /*分类名称*/
+title varchar(240) not null,    /*问题标题*/
+content text not null,    /*问题内容*/
+uid bigint not null,        /*作者id*/
+nicheng varchar(120) not null, /*作者昵称*/
+looknum bigint not null default 0,/*查看次数*/
+renum int not null default 0,    /*回复次数*/
+finished tinyint not null default 0,/*是否结贴,0表未结贴,1表结贴*/
+updtime timestamp not null,
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+/*文章评论表*/
+create table emotionreplies(
+erpid bigint not null primary key auto_increment,
+eid bigint not null,
+content text not null,
+uid bigint not null,        /*评论者id*/
+nicheng varchar(120) not null, /*评论者者昵称*/
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+=====================================
+/*校园兼职表*/
+create table pjob(
+pid bigint not null primary key auto_increment,
+phone bigint not null,        /*联系方式*/
+qq bigint not null,
+pay bigint not null,/*日薪*/
+title varchar(240) not null,    /*职位名称*/
+content text not null,    /*兼职介绍详情信息*/
+uid bigint not null,        /*作者id*/
+nicheng varchar(120) not null, /*作者昵称*/
+looknum bigint not null default 0,/*查看次数*/
+updtime timestamp not null,
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+===========================================
+/*时尚前沿技术表*/
+create table fashion(
+fid bigint not null primary key auto_increment,
+typeid int not null,        /*问题分类*/
+typename varchar(120) not null,  /*分类名称*/
+title varchar(240) not null,    /*问题标题*/
+content text not null,    /*问题内容*/
+uid bigint not null,        /*作者id*/
+nicheng varchar(120) not null, /*作者昵称*/
+looknum bigint not null default 0,/*查看次数*/
+renum int not null default 0,    /*回复次数*/
+finished tinyint not null default 0,/*是否结贴,0表未结贴,1表结贴*/
+updtime timestamp not null,
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+/*技术评论表*/
+create table fashionreplies(
+frpid bigint not null primary key auto_increment,
+fid bigint not null,
+content text not null,
+uid bigint not null,        /*评论者id*/
+nicheng varchar(120) not null, /*评论者者昵称*/
+createtime timestamp not null
+)ENGINE=innodb DEFAULT CHARSET=utf8;
+
+=====================================
+/*
+default 0 是否置顶 0不置顶 1置顶
+是否版主
+*/
+=======================
+segment库中建admin表： 
+create table admin( 
+uid int not null primary key auto_increment, 
+email varchar(60) not null, 
+pwd varchar(60) not null, 
+nicheng varchar(120) not null, 
+updtime timestamp not null, 
+createtime timestamp not null, 
+unique key emailuniq (email), 
+unique key nichenguiq (nicheng) 
+)ENGINE=myisam DEFAULT CHARSET=utf8; 

@@ -1,0 +1,119 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>校园论坛系统</title> 
+    <meta charset="UTF-8"> 
+<!-- 新 Bootstrap 核心 CSS 文件 --> 
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.css"> 
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 --> 
+<script src="/javascripts/jquery-1.11.1.min.js"></script> 
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 --> 
+<script src="/bootstrap/dist/js/bootstrap.js"></script> 
+
+<script src="/javascripts/holder.min.js"></script>
+  
+  <style>
+     .menu{ 
+        width:1024px; 
+        background-color:#005f3d; 
+        height:1.6em; 
+        line-height: 1.6em;
+        margin:0 auto; 
+        font-size:1.5em;
+        font-family: '微软雅黑';
+        display:hidden; 
+        text-align:center; 
+        /*padding: 4px;*/
+    } 
+    .menu span{ 
+        float:left; 
+        display:inline-block; 
+        color:#ffffff; 
+        margin-left:1em; 
+    } 
+     .menu a,.menu a:hover,.menu a:visited{ 
+        color:#ffffff; 
+    }
+    .footer{
+        width: 1024px;
+        background-color:#005f3d; 
+        height: 3.2em;
+        line-height: 1.6em;
+        margin: 0 auto;
+        font-size: 1.0em;
+        text-align: center;
+        margin-top:1em;
+    }
+    .footer span{
+        display: inline-block;
+        color: #bbb;
+    }
+    .footer a,.footer a:hover,.footer a:visited{ 
+        color:#eee; 
+    }
+
+  </style>
+
+  </head>
+<body> 
+<div style="width:1024px;height:3em;margin:1em auto"> 
+  <div class="text-center"><span class="glyphicon glyphicon-comment" style="float:left;font-size:2em"><a href="/admin"><b class="text-success">后台管理员系统</b></a></span></div>
+    <div style="float:right;line-height:2em;">  
+        <table>  
+          <tr>  
+            <% if(loginbean==undefined){ %>  
+            <td>
+            <input type="button" id="loginBtn" class="btn btn-success" data-toggle="modal" href="/admin/login" data-target="#loginModal2" value="登录"/>
+            &nbsp;&nbsp;  
+            </td>  
+            <% }else{ %>  
+            <td>
+            你好，管理员：<%=loginbean.nicheng%>
+            &nbsp;&nbsp;&nbsp;
+            </td>  
+            <td>  
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-default dropdown-toggle"   
+                  data-toggle="dropdown">  
+                  管理  
+                  <span class="caret"></span>  
+                </button>  
+                <ul class="dropdown-menu">  
+                  <li><a href="/admin/aask">发帖</a></li>  
+                  <li class="divider"></li>
+                  <li><a href="/admin/aquestion">帖子管理</a></li>  
+                  <li><a href="/admin/auser">用户管理</a></li>  
+                  <li><a href="/admin/amoderator">版主管理</a></li>
+                </ul>  
+              </div>  
+            </div>  
+            </td>  
+            <td>  
+            &nbsp;&nbsp;&nbsp;  
+            <input type="button" class="btn btn-success" value="注销" onclick="javascript:location.href='/admin/logout'"/>  
+            &nbsp;&nbsp;&nbsp;  
+            </td>  
+            <% } %>  
+          </tr>  
+        </table>  
+    </div> 
+</div> 
+<div class="menu"> 
+    <span><a href="/admin">主页</a></span> 
+    <span>|</span> 
+    <span><a href="/admin/amoderator">版主管理</a></span> 
+    <span><a href="/admin/auser">用户管理</a></span> 
+    <span><a href="/admin/aquestion">帖子管理</a></span> 
+    <span><a href="/admin/aask">发帖</a></span>
+    <span>...</span>
+</div>
+
+
+<!-- 登陆注册模态框 -->
+<div class="modal fade" id="loginModal2" style="width: 1480px">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 420px">
+            <!-- href内容 -->
+        </div>
+    </div>
+</div>

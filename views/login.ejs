@@ -1,0 +1,66 @@
+<script>
+  loginForm.targeturl.value = location.href;
+  zhuceForm.targeturl.value = location.href;
+</script>
+<div style="height:330px;background:#ffffff;">
+    <div style="margin:9px 9px;border:1px solid green;width:400px;float:left;">
+    <form name="loginForm" method="post" action="/users/login">
+    <table class="table">
+       <tr>
+        <td colspan="2" align="center">登录</td>
+       </tr>
+       <tbody>
+          <tr>
+         <td align="right">email:</td>
+         <td><input type="text" name="email" class="form-control" placeholder="文本输入"/></td>
+          </tr>
+          <tr>
+         <td align="right">密码:</td>
+         <td><input type="password" name="pwd" class="form-control" placeholder="密码"/></td>
+          </tr>
+          <tr>
+         <td colspan="2" align="center" valign="middle">
+            <input type="hidden" name="subflag" value="1">
+            <input type="hidden" name="targeturl" value="/">
+            <input type="submit" value="登录" class="btn btn-success"/>
+         </td>
+          </tr>
+       </tbody>
+    </table>
+    </form>
+    </div>
+    <div style="margin:9px 9px;border:1px solid green;width:400px;float:left;">
+    <form name="zhuceForm" method="post" action="/users/zhuce">
+    <table class="table">
+       <tr>
+        <td colspan="2" align="center">注册</td>
+       </tr>
+       <tbody>
+          <tr>
+         <td align="right">email:</td>
+         <td><input type="text" name="email" class="form-control" placeholder="文本输入"/></td>
+          </tr>
+          <tr>
+         <td align="right">密码:</td>
+         <td><input type="password" name="pwd" class="form-control" placeholder="密码"/></td>
+          </tr>
+          <tr>
+         <td align="right">重复:</td>
+         <td><input type="password" name="repwd" class="form-control" placeholder="密码"/></td>
+          </tr>
+          <tr>
+         <td align="right">昵称:</td>
+         <td><input type="text" name="nicheng" class="form-control" placeholder="昵称"/></td>
+          </tr>
+          <tr>
+         <td colspan="2" align="center"  valign="middle">
+            <input type="hidden" name="subflag" value="1">
+            <input type="hidden" name="targeturl" value="/">
+            <input type="submit" value="注册" class="btn btn-success"/>
+         </td>
+          </tr>
+       </tbody>
+    </table>
+    </form>
+    </div>
+</div>

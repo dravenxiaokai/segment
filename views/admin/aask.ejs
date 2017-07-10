@@ -1,0 +1,72 @@
+<%-include header%>
+<script type="text/javascript" src="/xheditor/xheditor-1.2.2.min.js"></script>
+<script type="text/javascript" src="/xheditor/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript">
+$(pageInit);
+function pageInit()
+{
+    $.extend(XHEDITOR.settings,{shortcuts:{'ctrl+enter':submitForm}});
+    $('#content').xheditor({html5Upload:false,upMultiple:'1',upLinkUrl:"upload.php",upLinkExt:"zip,rar,txt",upImgUrl:"/uploadImg",upImgExt:"jpg,jpeg,gif,png",upFlashUrl:"upload.php",upFlashExt:"swf",upMediaUrl:"upload.php",upMediaExt:"wmv,avi,wma,mp3,mid"});
+}
+function insertUpload(arrMsg)
+{console.log(arrMsg)
+    var i,msg;
+    for(i=0;i<arrMsg.length;i++)
+    {
+        msg=arrMsg[i];
+        $("#uploadList").append('<option value="'+msg.id+'">'+msg.localname+'</option>');
+    }
+}
+function submitForm(){$('#frmDemo').submit();}
+function onsub(){
+    typename = $("#typeid").find("option:selected").text();
+    myform.typename.value = typename;
+    return true;
+}
+</script>
+<br>
+<div style="width:1024px;margin:0.5em auto;">
+<div class="text-success"><h4>发帖</h4></div>
+<hr>
+<form name="myform" method="post" action="./ask" onsubmit="return false;">  
+    <table class="table table-bordered">  
+        <tr>  
+            <td align="right">标题:</td>  
+            <td><input type="text" name="title"/></td>  
+        </tr>  
+        <tr>  
+            <td align="right">分类:</td>  
+            <td>  
+                <select id="typeid" name="typeid"/>  
+                <option value="1">javascript</option>  
+                <option value="2">php</option>  
+                <option value="3">pathon</option>  
+                <option value="4">java</option>  
+                <option value="5">mysql</option>  
+                <option value="6">ios</option>  
+                <option value="7">android</option>  
+                <option value="8">node.js</option>  
+                <option value="9">html5</option>  
+                <option value="10">lunux</option>  
+                <option value="11">c++</option>  
+                <option value="12">其他</option>  
+                </select>  
+            </td>  
+        </tr>
+        <tr>  
+            <td align="right" valign="top">内容:</td>  
+            <td>  
+                <textarea id="content" name="content" cols="120" rows="9"></textarea> 
+            </td>  
+        </tr>  
+        <tr>  
+            <td colspan="2" align="center">  
+                <input type="hidden" name="subflag" value="1"/>
+                <input type="hidden" name="typename"/>
+                <input type="submit" class="btn btn-success" value="提问"/>  
+            </td>  
+        </tr>  
+    </table>  
+    </form>
+</div>
+<%-include footer%>
